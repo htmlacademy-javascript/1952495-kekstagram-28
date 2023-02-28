@@ -32,22 +32,23 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-const getFinallyObject = () => ({
-  id: getRandomInteger(1, 25),
-  url: `photos/${getRandomInteger(1, 25)}.jpg.`,
+const getFinallyComments = () => ({
+  id: getRandomInteger(0, 100000),
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  message: getRandomArrayElement(AUTHOR_COMMENT_TEXT),
+  name: getRandomArrayElement(AUTHOR_COMMENT),
+});
+
+const allCommets = () => [Array.from({length: 3}, getFinallyComments)];
+
+const getFinallyObject = (_, idCounter) => ({
+  id: idCounter + 1,
+  url: `photos/${idCounter + 1}.jpg.`,
   description: getRandomArrayElement(DESCRIPTION_PHOTO),
   likes: getRandomInteger(15, 200),
-  comments: [
-    {
-      id: getRandomInteger(0, 100000),
-      avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-      message: getRandomArrayElement(AUTHOR_COMMENT_TEXT),
-      name: getRandomArrayElement(AUTHOR_COMMENT),
-    }
-  ]
+  comments: allCommets(),
 });
 
 const allObjects = Array.from({length: 25}, getFinallyObject);
 
-allObjects(); // вызываю как функцию чтоб линтер не ругался на эту константу!!!
-
+allObjects(); // для линтера
