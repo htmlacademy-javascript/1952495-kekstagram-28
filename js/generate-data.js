@@ -44,6 +44,7 @@ const getFinallyObject = (_, idCounter) => ({
 
 const allObjects = Array.from({length: 25}, getFinallyObject);
 
-allObjects(); // Для линтера. В консоли браузера выдает ошибку из-за этого, а так все норм.
+export {allObjects};
+// allObjects(); // Для линтера. В консоли браузера выдает ошибку из-за этого, а так все норм.
 
 
