@@ -36,7 +36,7 @@ const allCommets = () => [Array.from({length: 3}, getFinallyComment)];
 
 const getFinallyObject = (_, idCounter) => ({
   id: idCounter + 1,
-  url: `photos/${idCounter + 1}.jpg.`,
+  url: `photos/${idCounter + 1}.jpg`,
   description: getRandomArrayElement(DESCRIPTION_PHOTO),
   likes: getRandomInteger(15, 200),
   comments: allCommets(),
@@ -44,6 +44,7 @@ const getFinallyObject = (_, idCounter) => ({
 
 const allObjects = Array.from({length: 25}, getFinallyObject);
 
-allObjects(); // Для линтера. В консоли браузера выдает ошибку из-за этого, а так все норм.
+export {allObjects};
+// allObjects(); // Для линтера. В консоли браузера выдает ошибку из-за этого, а так все норм.
 
 
