@@ -32,7 +32,7 @@ const getFinallyComment = () => ({
   name: getRandomArrayElement(AUTHOR_COMMENT),
 });
 
-const allCommets = () => [Array.from({length: 3}, getFinallyComment)];
+const allCommets = () => Array.from({length: 10}, getFinallyComment);
 
 const getFinallyObject = (_, idCounter) => ({
   id: idCounter + 1,
@@ -44,7 +44,8 @@ const getFinallyObject = (_, idCounter) => ({
 
 const allObjects = Array.from({length: 25}, getFinallyObject);
 
-export {allObjects};
-// allObjects(); // Для линтера. В консоли браузера выдает ошибку из-за этого, а так все норм.
+// console.log(allObjects);
+
+export {allObjects, AUTHOR_COMMENT, AUTHOR_COMMENT_TEXT, DESCRIPTION_PHOTO};
 
 
