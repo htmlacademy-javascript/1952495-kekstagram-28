@@ -25,6 +25,8 @@ const AUTHOR_COMMENT_TEXT = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
+const ALL_COMMENTS_COUNT = 15;
+
 const getFinallyComment = () => ({
   id: getRandomInteger(0, 100000),
   avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
@@ -32,7 +34,7 @@ const getFinallyComment = () => ({
   name: getRandomArrayElement(AUTHOR_COMMENT),
 });
 
-const allCommets = () => Array.from({length: 10}, getFinallyComment);
+const allCommets = () => Array.from({length: getRandomInteger(1, 15)}, getFinallyComment);
 
 const getFinallyObject = (_, idCounter) => ({
   id: idCounter + 1,
@@ -44,8 +46,6 @@ const getFinallyObject = (_, idCounter) => ({
 
 const allObjects = Array.from({length: 25}, getFinallyObject);
 
-// console.log(allObjects);
-
-export {allObjects, AUTHOR_COMMENT, AUTHOR_COMMENT_TEXT, DESCRIPTION_PHOTO};
+export {allObjects, AUTHOR_COMMENT, AUTHOR_COMMENT_TEXT, DESCRIPTION_PHOTO, ALL_COMMENTS_COUNT};
 
 
