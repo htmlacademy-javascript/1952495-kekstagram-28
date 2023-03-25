@@ -34,15 +34,14 @@ const getFinallyComment = () => ({
   name: getRandomArrayElement(AUTHOR_COMMENT),
 });
 
-const allCommets = () => Array.from({length: getRandomInteger(1, 15)}, getFinallyComment);
-
 const getFinallyObject = (_, idCounter) => ({
   id: idCounter + 1,
   url: `photos/${idCounter + 1}.jpg`,
   description: getRandomArrayElement(DESCRIPTION_PHOTO),
   likes: getRandomInteger(15, 200),
-  comments: allCommets(),
+  comments: Array.from({length: getRandomInteger(1, 15)}, getFinallyComment),
 });
+
 
 const allObjects = Array.from({length: 25}, getFinallyObject);
 

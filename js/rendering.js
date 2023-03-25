@@ -10,7 +10,7 @@ const makePhotoData = (renderData) => {
     const similarObjectClone = pictureTeplate.cloneNode(true);
     similarObjectClone.querySelector('.picture__img').src = data.url;
     similarObjectClone.querySelector('.picture__likes').textContent = data.likes;
-    similarObjectClone.querySelector('.picture__comments').textContent = data.comments.length;
+    similarObjectClone.querySelector('.picture__comments').textContent = data.comments.length; //map((item) => item.name)
     similarObjectClone.addEventListener('click', () => {
       showBigPicture(data);
     });

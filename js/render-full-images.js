@@ -1,13 +1,14 @@
 import {dataList} from './rendering.js'; // document.querySelector('.pictures');
 import {isEscapeKey} from './auxiliary-functions.js';
-import {comment, commentsLoader, onLoaderClick} from './photo-comments.js';
+import {renderComments} from './generate-photo-comments.js';
 
 const bigPictureContainer = document.querySelector('.big-picture');
 const bigPicturePreview = bigPictureContainer.querySelector('.big-picture__preview');
 const userModalCloseElement = bigPictureContainer.querySelector('.big-picture__cancel');
 const likesAmount = bigPictureContainer.querySelector('.likes-count');
-const commentsAmount = bigPictureContainer.querySelector('.comments-count');
+const commentsAmountAll = bigPictureContainer.querySelector('.comments-count');
 const descriptionPhoto = bigPictureContainer.querySelector('.social__caption');
+const body = document.querySelector('body');
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -24,24 +25,28 @@ function openModal () {
 function closeModal () {
   bigPictureContainer.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', renderComments);
+  body.classList.remove('modal-open');
 }
 
 userModalCloseElement.addEventListener('click', () => {
   closeModal();
 });
 
-const showBigPicture = (data) => {
-  document.querySelector('body').classList.add('modal-open');
+const renderBigPicture = (data) => {
   bigPicturePreview.querySelector('.big-picture__img img').src = data.url;
   likesAmount.textContent = data.likes;
-  commentsAmount.textContent = data.comments.length;
+  commentsAmountAll.textContent = data.comments.length;
   descriptionPhoto.textContent = data.description;
-  commentsLoader.classList.remove('hidden');
-  comment.innerHTML = '';
-  onLoaderClick(data.comments);
+  renderComments(data.comments);
+};
+
+const showBigPicture = (data) => {
+  body.classList.add('modal-open');
+  renderBigPicture(data);
   openModal();
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-export {dataList, showBigPicture};
+export {dataList, showBigPicture, commentsAmountAll};
 
