@@ -1,5 +1,3 @@
-import {allObjects} from './generate-data.js';
-import {makePhotoData} from './rendering.js';
-
-makePhotoData(allObjects);
-
+import './rendering.js';
+import './render-full-images.js';
+import './photo-comments.js';

@@ -1,3 +1,5 @@
+import {allObjects} from './generate-data.js';
+
 const pictureTeplate = document.querySelector('#picture').content.querySelector('.picture');
 const dataList = document.querySelector('.pictures');
 const listFragment = document.createDocumentFragment();
@@ -14,4 +16,6 @@ const makePhotoData = (renderData) => {
   dataList.append(listFragment);
 };
 
-export {makePhotoData};
+makePhotoData(allObjects);
+
+export {makePhotoData, dataList};
