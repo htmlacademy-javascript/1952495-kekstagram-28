@@ -48,5 +48,5 @@ const showBigPicture = (data) => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-export {dataList, showBigPicture, commentsAmountAll};
+export {dataList, showBigPicture, commentsAmountAll, onDocumentKeydown};
 
