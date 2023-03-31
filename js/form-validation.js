@@ -1,6 +1,9 @@
 
 // import {onDocumentKeydown} from './render-full-images.js'; // Не работает
 import {isEscapeKey} from './auxiliary-functions.js';
+import {makePhotoSmaller, makePhotoBigger} from './transform-photo.js';
+import {addEffect} from './change-effect.js';
+import {resetEffects} from './adjust-effect.js';
 const uploadFileOverlay = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
@@ -8,7 +11,10 @@ const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
 const textHastag = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const photoUploadPreview = document.querySelector('.img-upload__preview');
+const photo = document.querySelector('.img-upload__preview img');
 const NUMBER_ALLOWED_HASHTAG = 6;
+
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
@@ -33,8 +39,15 @@ function closeModal () { // почему стрелочная функция н�
   uploadFileOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', makePhotoSmaller);
+  document.removeEventListener('keydown', makePhotoBigger);
+  document.removeEventListener('keydown', addEffect);
   form.reset();
   pristine.reset();
+  photoUploadPreview.style.transform = 'scale(1)';
+  photo.classList.remove(photo.classList.item(0));
+  photo.classList.add('effects__preview--none');
+  resetEffects();
 }
 
 function openModal () {
@@ -69,6 +82,12 @@ const validateHashtags = (value) => {
   return checkAmoutHashtag(tags) && tags.every(checkTextHashtag) && searchSameHashtag(tags);
 
 };
+
+// const checkHashtag = (value) => {
+//   const arrayHashtag = value.split(' ');
+//   return arrayHashtag.every((tag) => isHastag.test(tag));
+// };
+
 
 pristine.addValidator(textHastag, validateHashtags, 'Недопустимый хештег');
 
