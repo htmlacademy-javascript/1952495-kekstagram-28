@@ -53,6 +53,7 @@ const slider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const photo = document.querySelector('.img-upload__preview img');
 const effectsElement = document.querySelector('.effects');
+const photoUploadEffectLevel = document.querySelector('.img-upload__effect-level');
 const DEFAULT_EFFECT = EFFECTS[0];
 let chosenEffect = DEFAULT_EFFECT;
 
@@ -74,8 +75,10 @@ const updateSlider = () => {
 
   if(isDefault()){
     hideSlider();
+    photoUploadEffectLevel.classList.add('hidden');
   } else{
     showSlider();
+    photoUploadEffectLevel.classList.remove('hidden');
   }
 };
 

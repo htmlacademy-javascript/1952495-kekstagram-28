@@ -5,19 +5,21 @@ const photoUploadPreview = document.querySelector('.img-upload__preview');
 
 const STEP_TRANSFORM = 25;
 
+const adjustScalePhoto = (step) => {
+  valueSizePhoto.value = String(`${Number(valueSizePhoto.value.slice(0, -1)) + step}%`);
+  const meaningTransform = Number(valueSizePhoto.value.slice(0, -1)) / 100;
+  photoUploadPreview.style.transform = `scale(${meaningTransform})`;
+};
+
 const makePhotoSmaller = () => {
   if(Number(valueSizePhoto.value.slice(0, -1)) > 25){
-    valueSizePhoto.value = String(`${Number(valueSizePhoto.value.slice(0, -1)) - STEP_TRANSFORM}%`);
-    const meaningTransform = Number(valueSizePhoto.value.slice(0, -1)) / 100;
-    photoUploadPreview.style.transform = `scale(${meaningTransform})`;
+    adjustScalePhoto(-STEP_TRANSFORM);
   }
 };
 
 const makePhotoBigger = () => {
   if(Number(valueSizePhoto.value.slice(0, -1)) < 100){
-    valueSizePhoto.value = String(`${Number(valueSizePhoto.value.slice(0, -1)) + STEP_TRANSFORM}%`);
-    const meaningTransform = Number(valueSizePhoto.value.slice(0, -1)) / 100;
-    photoUploadPreview.style.transform = `scale(${meaningTransform})`;
+    adjustScalePhoto(STEP_TRANSFORM);
   }
 };
 
