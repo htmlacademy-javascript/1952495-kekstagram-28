@@ -1,6 +1,7 @@
 import {isEscapeKey} from './auxiliary-functions.js';
 import {makePhotoSmaller, makePhotoBigger} from './transform-photo.js';
 import {resetEffects} from './adjust-effect.js';
+import {sendData, openModalCondition} from './api.js';
 const uploadFileOverlay = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
@@ -11,6 +12,9 @@ const commentField = document.querySelector('.text__description');
 const photoUploadPreview = document.querySelector('.img-upload__preview');
 const photo = document.querySelector('.img-upload__preview img');
 const photoUploadEffectLevel = document.querySelector('.img-upload__effect-level');
+const submitButton = document.querySelector('.img-upload__submit');
+const submitSuccess = document.querySelector('.success');
+const submitError = document.querySelector('.error');
 const NUMBER_ALLOWED_HASHTAG = 6;
 
 const pristine = new Pristine(form, {
@@ -28,7 +32,6 @@ const onDocumentKeydown = (evt) => {
     closeModal();
   }
 };
-
 
 function closeModal () {
   uploadFileOverlay.classList.add('hidden');
@@ -77,16 +80,24 @@ const validateHashtags = (value) => {
 
 };
 
-// const checkHashtag = (value) => {
-//   const arrayHashtag = value.split(' ');
-//   return arrayHashtag.every((tag) => isHastag.test(tag));
-// };
-
 pristine.addValidator(textHastag, validateHashtags, 'Недопустимый хештег');
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if(pristine.validate()){
-    form.submit();
-  }
-});
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    if(pristine.validate()){
+      submitButton.disabled = true;
+      sendData(new FormData(evt.target))
+        .then((data) => {
+          onSuccess(data);
+          openModalCondition(submitSuccess);
+        })
+        .catch(() => {
+          openModalCondition(submitError);
+        })
+        .finally(submitButton.disabled = false);
+    }
+  });
+};
+
+export {setUserFormSubmit, closeModal, openModal, onDocumentKeydown};
