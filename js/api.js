@@ -1,16 +1,13 @@
 import {isEscapeKey} from './auxiliary-functions.js';
 import {onDocumentKeydown} from './form-validation.js';
+// const buttonError = document.querySelector('.error__button');
 
-const submitSuccess = document.querySelector('.success');
-const buttonSuccess = document.querySelector('.success__button');
-const submitError = document.querySelector('.error');
-const buttonError = document.querySelector('.error__button');
 
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 
 const Route = {
   GET_DATA: '/data',
-  SEND_DATA: '/',
+  SEND_DATA: '/d',
 };
 
 const Method = {
@@ -36,57 +33,42 @@ const sendData = (body) => load(Route.SEND_DATA, Method.POST, body);
 
 
 function closeModalCondition (condition) {
-  condition.classList.add('hidden');
-  document.removeEventListener('keydown', onDocumentKeydownSuccessSendind);
+  condition.remove();
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
 
 function openModalCondition (condition) {
-  condition.classList.remove('hidden');
+  const openModalConditionClone = condition.cloneNode(true);
+  const closeButton = openModalConditionClone.querySelector('button');
+  const innerContainer = openModalConditionClone.querySelector('div');
+
+  function onDocumentKeydownSendind (evt) {
+    if(isEscapeKey(evt) && openModalConditionClone){
+      evt.preventDefault();
+      closeModalCondition(openModalConditionClone);
+      document.removeEventListener('keydown', onDocumentKeydownSendind);
+    }
+  }
+
+  function onClickOutField (evt) {
+    if (evt.target.className !== innerContainer) {
+      closeModalCondition(openModalConditionClone);
+      openModalConditionClone.removeEventListener('click', onClickOutField);
+    }
+  }
+
   document.removeEventListener('keydown', onDocumentKeydown);
-  document.addEventListener('keydown', onDocumentKeydownSuccessSendind);
+
+  document.addEventListener('keydown', onDocumentKeydownSendind);
+
+  openModalConditionClone.addEventListener('click', onClickOutField);
+
+  closeButton.addEventListener('click', () =>{
+    closeModalCondition(openModalConditionClone);
+  });
+
+  document.body.append(openModalConditionClone);
 }
-
-
-buttonSuccess.addEventListener('click', () => {
-  closeModalCondition(submitSuccess);
-});
-
-
-buttonError.addEventListener('click', () => {
-  closeModalCondition(submitError);
-});
-
-
-function onDocumentKeydownSuccessSendind (evt) {
-  if(isEscapeKey(evt) && submitSuccess){
-    evt.preventDefault();
-    closeModalCondition(submitSuccess);
-  }
-  if(isEscapeKey(evt) && submitError){
-    evt.preventDefault();
-    closeModalCondition(submitError);
-  }
-}
-
-
-function onClickField (evt) {
-  if (evt.target.className !== 'success__inner') {
-    closeModalCondition(submitSuccess);
-  }
-  // submitSuccess.removeEventListener('click', onClickField); // при удалении обработчика ломается закрытие(второй раз не получается закрыть)
-}
-submitSuccess.addEventListener('click', onClickField);
-
-
-function onClickFields (evt) {
-  if (evt.target.className !== 'error__inner') {
-    closeModalCondition(submitError);
-  }
-  // submitError.removeEventListener('click', onClickFields); // аналогично
-}
-submitError.addEventListener('click', onClickFields);
-
 
 export {getData, sendData, openModalCondition};

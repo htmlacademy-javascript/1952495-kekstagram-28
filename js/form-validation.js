@@ -13,8 +13,13 @@ const photoUploadPreview = document.querySelector('.img-upload__preview');
 const photo = document.querySelector('.img-upload__preview img');
 const photoUploadEffectLevel = document.querySelector('.img-upload__effect-level');
 const submitButton = document.querySelector('.img-upload__submit');
-const submitSuccess = document.querySelector('.success');
-const submitError = document.querySelector('.error');
+
+// const submitSuccess = document.querySelector('.success');
+// const submitError = document.querySelector('.error');
+
+const submitSuccess = document.querySelector('#success').content.querySelector('.success');
+const submitError = document.querySelector('#error').content.querySelector('.error');
+
 const NUMBER_ALLOWED_HASHTAG = 6;
 
 const pristine = new Pristine(form, {
