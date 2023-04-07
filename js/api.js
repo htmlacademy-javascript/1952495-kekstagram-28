@@ -1,12 +1,13 @@
 import {isEscapeKey} from './auxiliary-functions.js';
 import {onDocumentKeydown} from './form-validation.js';
+// const buttonError = document.querySelector('.error__button');
 
 
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 
 const Route = {
   GET_DATA: '/data',
-  SEND_DATA: '/',
+  SEND_DATA: '/d',
 };
 
 const Method = {
