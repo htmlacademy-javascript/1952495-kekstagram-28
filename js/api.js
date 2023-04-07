@@ -27,7 +27,7 @@ const load = (route, method = Method.GET, body = null) =>
       throw new Error();
     });
 
-const getData = () => load(Route.GET_DATA); // почему здесь уазываем только два аргумента
+const getData = () => load(Route.GET_DATA);
 
 const sendData = (body) => load(Route.SEND_DATA, Method.POST, body);
 
