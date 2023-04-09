@@ -1,7 +1,17 @@
-// const buttonFilterDefault = document.querySelector('#filter-default');
-// const buttonFilterRandom = document.querySelector('#filter-random');
-// const buttonFilterDiscussed = document.querySelector('#filter-discussed');
+import {makePhotoData} from './rendering.js';
+import {debounce} from './auxiliary-functions.js';
+
 const filterContainer = document.querySelector('.img-filters__form');
+
+const changeActiveButton = (evt) =>{
+  const elems = document.querySelector('.img-filters__button--active');
+  if(elems !== null){
+    elems.classList.remove('img-filters__button--active');
+  }
+  evt.target.classList.add('img-filters__button--active');
+};
+
+filterContainer.addEventListener('click', changeActiveButton);
 
 const sortDescuss = (photo1, photo2) => {
   const comment1 = photo1.comments.length;
@@ -9,42 +19,25 @@ const sortDescuss = (photo1, photo2) => {
   return comment2 - comment1;
 };
 
-const setFilter = (cb) => {
-
-  filterContainer.addEventListener('click', (evt) => {
+const debounced = (data) => {
+  filterContainer.addEventListener('click', debounce((evt) => {
     if(evt.target.id === 'filter-default'){
       const allPicture = document.querySelectorAll('.picture');
       allPicture.forEach((e) => e.remove());
-      cb().slice();
+      makePhotoData(data.slice());
     }
     if(evt.target.id === 'filter-random'){
       const allPicture = document.querySelectorAll('.picture');
       allPicture.forEach((e) => e.remove());
-      cb().slice().sort(() => 0.5 - Math.random()).slice(0, 10);
+      makePhotoData(data.slice().sort(() => 0.5 - Math.random()).slice(0, 10));
     }
     if(evt.target.id === 'filter-discussed'){
       const allPicture = document.querySelectorAll('.picture');
       allPicture.forEach((e) => e.remove());
-      cb().slice().sort(sortDescuss);
+      makePhotoData(data.slice().sort(sortDescuss));
     }
-  });
+  }));
 };
 
-// const setFilterRandom = (cb) => {
-//   buttonFilterRandom.addEventListener('click', () => {
-//     const allPicture = document.querySelectorAll('.picture');
-//     allPicture.forEach((e) => e.remove());
-//     cb();
-//   });
-// };
 
-// const setFilterDisscused = (cb) => {
-//   buttonFilterDiscussed.addEventListener('click', () => {
-//     const allPicture = document.querySelectorAll('.picture');
-//     allPicture.forEach((e) => e.remove());
-//     cb();
-//   });
-// };
-
-
-export {setFilter};
+export {debounced};
