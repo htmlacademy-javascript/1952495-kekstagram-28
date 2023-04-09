@@ -1,7 +1,8 @@
 import {isEscapeKey} from './auxiliary-functions.js';
 import {makePhotoSmaller, makePhotoBigger} from './transform-photo.js';
 import {resetEffects} from './adjust-effect.js';
-import {sendData, openModalCondition} from './api.js';
+import {sendData} from './api.js';
+import {openModalCondition} from './message-request-status.js';
 const uploadFileOverlay = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
@@ -14,8 +15,6 @@ const photo = document.querySelector('.img-upload__preview img');
 const photoUploadEffectLevel = document.querySelector('.img-upload__effect-level');
 const submitButton = document.querySelector('.img-upload__submit');
 
-// const submitSuccess = document.querySelector('.success');
-// const submitError = document.querySelector('.error');
 
 const submitSuccess = document.querySelector('#success').content.querySelector('.success');
 const submitError = document.querySelector('#error').content.querySelector('.error');
