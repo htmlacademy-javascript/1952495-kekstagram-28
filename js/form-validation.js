@@ -1,5 +1,5 @@
 import {isEscapeKey} from './auxiliary-functions.js';
-import {makePhotoSmaller, makePhotoBigger} from './transform-photo.js';
+import {onMakePhotoSmaller, onMakePhotoBigger} from './transform-photo.js';
 import {resetEffects} from './adjust-effect.js';
 import {sendData} from './api.js';
 import {openModalCondition} from './message-request-status.js';
@@ -41,8 +41,8 @@ function closeModal () {
   uploadFileOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  document.removeEventListener('keydown', makePhotoSmaller);
-  document.removeEventListener('keydown', makePhotoBigger);
+  document.removeEventListener('keydown', onMakePhotoSmaller);
+  document.removeEventListener('keydown', onMakePhotoBigger);
   form.reset();
   pristine.reset();
   photoUploadPreview.style.transform = 'scale(1)';

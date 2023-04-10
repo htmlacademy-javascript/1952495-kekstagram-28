@@ -11,21 +11,21 @@ const adjustScalePhoto = (step) => {
   photoUploadPreview.style.transform = `scale(${meaningTransform})`;
 };
 
-const makePhotoSmaller = () => {
+const onMakePhotoSmaller = () => {
   if(Number(valueSizePhoto.value.slice(0, -1)) > 25){
     adjustScalePhoto(-STEP_TRANSFORM);
   }
 };
 
-const makePhotoBigger = () => {
+const onMakePhotoBigger = () => {
   if(Number(valueSizePhoto.value.slice(0, -1)) < 100){
     adjustScalePhoto(STEP_TRANSFORM);
   }
 };
 
-buttonSmaller.addEventListener('click', makePhotoSmaller);
+buttonSmaller.addEventListener('click', onMakePhotoSmaller);
 
-buttonBigger.addEventListener('click', makePhotoBigger);
+buttonBigger.addEventListener('click', onMakePhotoBigger);
 
 
-export {makePhotoSmaller, makePhotoBigger};
+export {onMakePhotoSmaller, onMakePhotoBigger};

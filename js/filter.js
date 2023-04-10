@@ -3,15 +3,15 @@ import {debounce} from './auxiliary-functions.js';
 
 const filterContainer = document.querySelector('.img-filters__form');
 
-const changeActiveButton = (evt) =>{
-  const elems = document.querySelector('.img-filters__button--active');
-  if(elems !== null){
-    elems.classList.remove('img-filters__button--active');
+const onChangeActiveButton = (evt) =>{
+  const active = document.querySelector('.img-filters__button--active');
+  if(active !== null){
+    active.classList.remove('img-filters__button--active');
   }
   evt.target.classList.add('img-filters__button--active');
 };
 
-filterContainer.addEventListener('click', changeActiveButton);
+filterContainer.addEventListener('click', onChangeActiveButton);
 
 const sortDescuss = (photo1, photo2) => {
   const comment1 = photo1.comments.length;
