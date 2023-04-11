@@ -30,5 +30,4 @@ buttonSmaller.addEventListener('click', makePhotoSmaller);
 
 buttonBigger.addEventListener('click', makePhotoBigger);
 
-
 export {makePhotoSmaller, makePhotoBigger};
