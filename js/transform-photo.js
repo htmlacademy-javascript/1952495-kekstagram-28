@@ -16,19 +16,25 @@ const adjustScalePhoto = (step) => {
 
 const makePhotoSmaller = () => {
   if(Number(valueSizePhoto.value.slice(FIRST_SYMBOL, LAST_SYMBOL)) > STEP_TRANSFORM){
+=======
+const onMakePhotoSmaller = () => {
+  if(Number(valueSizePhoto.value.slice(0, -1)) > 25){
     adjustScalePhoto(-STEP_TRANSFORM);
   }
 };
 
 const makePhotoBigger = () => {
   if(Number(valueSizePhoto.value.slice(FIRST_SYMBOL, LAST_SYMBOL)) < MAX_VALUE_TRANSFORM){
+=======
+const onMakePhotoBigger = () => {
+  if(Number(valueSizePhoto.value.slice(0, -1)) < 100){
     adjustScalePhoto(STEP_TRANSFORM);
   }
 };
 
-buttonSmaller.addEventListener('click', makePhotoSmaller);
+buttonSmaller.addEventListener('click', onMakePhotoSmaller);
 
-buttonBigger.addEventListener('click', makePhotoBigger);
+buttonBigger.addEventListener('click', onMakePhotoBigger);
 
 
-export {makePhotoSmaller, makePhotoBigger};
+export {onMakePhotoSmaller, onMakePhotoBigger};
