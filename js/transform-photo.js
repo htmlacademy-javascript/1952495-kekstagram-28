@@ -10,24 +10,25 @@ const LAST_SYMBOL = -1;
 
 const adjustScalePhoto = (step) => {
   valueSizePhoto.value = String(`${Number(valueSizePhoto.value.slice(FIRST_SYMBOL, LAST_SYMBOL)) + step}%`);
-  const meaningTransform = Number(valueSizePhoto.value.slice(FIRST_SYMBOL, -1)) / MAX_VALUE_TRANSFORM;
+  const meaningTransform = Number(valueSizePhoto.value.slice(FIRST_SYMBOL, LAST_SYMBOL)) / MAX_VALUE_TRANSFORM;
   photoUploadPreview.style.transform = `scale(${meaningTransform})`;
 };
 
-const makePhotoSmaller = () => {
+const onMakePhotoSmaller = () => {
   if(Number(valueSizePhoto.value.slice(FIRST_SYMBOL, LAST_SYMBOL)) > STEP_TRANSFORM){
     adjustScalePhoto(-STEP_TRANSFORM);
   }
 };
 
-const makePhotoBigger = () => {
+const onMakePhotoBigger = () => {
   if(Number(valueSizePhoto.value.slice(FIRST_SYMBOL, LAST_SYMBOL)) < MAX_VALUE_TRANSFORM){
     adjustScalePhoto(STEP_TRANSFORM);
   }
 };
 
-buttonSmaller.addEventListener('click', makePhotoSmaller);
+buttonSmaller.addEventListener('click', onMakePhotoSmaller);
 
-buttonBigger.addEventListener('click', makePhotoBigger);
+buttonBigger.addEventListener('click', onMakePhotoBigger);
 
-export {makePhotoSmaller, makePhotoBigger};
+export {onMakePhotoSmaller, onMakePhotoBigger};
+
