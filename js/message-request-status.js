@@ -10,7 +10,6 @@ function closeModalCondition (condition) {
 function openModalCondition (condition) {
   const openModalConditionClone = condition.cloneNode(true);
   const closeButton = openModalConditionClone.querySelector('button');
-  const innerContainer = openModalConditionClone.querySelector('div');
 
   function onDocumentKeydownSendind (evt) {
     if(isEscapeKey(evt) && openModalConditionClone){
@@ -21,7 +20,7 @@ function openModalCondition (condition) {
   }
 
   function onClickOutField (evt) {
-    if (evt.target.className !== innerContainer) {
+    if (evt.target === openModalConditionClone) {
       closeModalCondition(openModalConditionClone);
       openModalConditionClone.removeEventListener('click', onClickOutField);
     }
@@ -33,9 +32,11 @@ function openModalCondition (condition) {
 
   openModalConditionClone.addEventListener('click', onClickOutField);
 
-  closeButton.addEventListener('click', () =>{
+  function onClickCloseButton () {
     closeModalCondition(openModalConditionClone);
-  });
+    closeButton.removeEventListener('click', onClickCloseButton);
+  }
+  closeButton.addEventListener('click', onClickCloseButton);
 
   document.body.append(openModalConditionClone);
 }
