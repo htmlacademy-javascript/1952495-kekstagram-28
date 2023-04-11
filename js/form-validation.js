@@ -86,11 +86,15 @@ const validateHashtags = (value) => {
 
 pristine.addValidator(textHastag, validateHashtags, 'Недопустимый хештег');
 
+const disableSubmitButton = (condition) => {
+  submitButton.disabled = condition;
+};
+
 const setUserFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     if(pristine.validate()){
-      submitButton.disabled = true;
+      disableSubmitButton(true);
       sendData(new FormData(evt.target))
         .then((data) => {
           onSuccess(data);
@@ -99,7 +103,7 @@ const setUserFormSubmit = (onSuccess) => {
         .catch(() => {
           openModalCondition(submitError);
         })
-        .finally(submitButton.disabled = false);
+        .finally(disableSubmitButton(false));
     }
   });
 };
