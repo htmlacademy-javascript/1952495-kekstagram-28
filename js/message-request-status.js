@@ -6,7 +6,6 @@ function closeModalCondition (condition) {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-
 function openModalCondition (condition) {
   const openModalConditionClone = condition.cloneNode(true);
   const closeButton = openModalConditionClone.querySelector('button');
