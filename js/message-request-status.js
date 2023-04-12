@@ -6,6 +6,7 @@ function closeModalCondition (condition) {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
+
 function openModalCondition (condition) {
   const openModalConditionClone = condition.cloneNode(true);
   const closeButton = openModalConditionClone.querySelector('button');
@@ -15,6 +16,7 @@ function openModalCondition (condition) {
       evt.preventDefault();
       closeModalCondition(openModalConditionClone);
       document.removeEventListener('keydown', onDocumentKeydownSendind);
+      document.removeEventListener('keydown', onDocumentKeydown);
     }
   }
 
@@ -22,17 +24,20 @@ function openModalCondition (condition) {
     if (evt.target === openModalConditionClone) {
       closeModalCondition(openModalConditionClone);
       openModalConditionClone.removeEventListener('click', onClickOutField);
+      document.removeEventListener('keydown', onDocumentKeydown);
+      document.removeEventListener('keydown', onDocumentKeydownSendind);
     }
   }
 
   document.removeEventListener('keydown', onDocumentKeydown);
-
   document.addEventListener('keydown', onDocumentKeydownSendind);
 
   openModalConditionClone.addEventListener('click', onClickOutField);
 
   function onClickCloseButton () {
     closeModalCondition(openModalConditionClone);
+    document.removeEventListener('keydown', onDocumentKeydown);
+    document.removeEventListener('keydown', onDocumentKeydownSendind);
     closeButton.removeEventListener('click', onClickCloseButton);
   }
   closeButton.addEventListener('click', onClickCloseButton);
