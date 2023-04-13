@@ -103,7 +103,9 @@ const setUserFormSubmit = (onSuccess) => {
         .catch(() => {
           openModalCondition(submitError);
         })
-        .finally(disableSubmitButton(false));
+        .finally(() => {
+          disableSubmitButton(false);
+        });
     }
   });
 };
