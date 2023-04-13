@@ -109,5 +109,4 @@ const setUserFormSubmit = (onSuccess) => {
     }
   });
 };
-
 export {setUserFormSubmit, closeModal, openModal, onDocumentKeydown};
