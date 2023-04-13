@@ -3,7 +3,10 @@ import {onDocumentKeydown} from './form-validation.js';
 
 function closeModalCondition (condition) {
   condition.remove();
-  document.addEventListener('keydown', onDocumentKeydown);
+
+  if(condition.className === 'error') {
+    document.addEventListener('keydown', onDocumentKeydown);
+  }
 }
 
 
@@ -23,17 +26,18 @@ function openModalCondition (condition) {
     if (evt.target === openModalConditionClone) {
       closeModalCondition(openModalConditionClone);
       openModalConditionClone.removeEventListener('click', onClickOutField);
+      document.removeEventListener('keydown', onDocumentKeydownSendind);
     }
   }
 
   document.removeEventListener('keydown', onDocumentKeydown);
-
   document.addEventListener('keydown', onDocumentKeydownSendind);
 
   openModalConditionClone.addEventListener('click', onClickOutField);
 
   function onClickCloseButton () {
     closeModalCondition(openModalConditionClone);
+    document.removeEventListener('keydown', onDocumentKeydownSendind);
     closeButton.removeEventListener('click', onClickCloseButton);
   }
   closeButton.addEventListener('click', onClickCloseButton);
